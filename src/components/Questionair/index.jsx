@@ -6,7 +6,7 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 const Questionair = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const [state, setstate] = useState({
     speaking: "",
     event: "",

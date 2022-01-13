@@ -13,7 +13,7 @@ const Step3 = ({ step, updateStep }) => {
           <img src={pin} alt="pin" />
         </div>
       </div>
-      <div className="pr-80">
+      <div className="content-right pr-80">
         <Info>
           <div className="text-card">
             Pin Yoodli to your browser for quick access

@@ -8,7 +8,7 @@ const Step1 = ({ step, updateStep }) => {
       <div className="media-left">
         <img src={step1} alt="step1" className="single-img d-block" />
       </div>
-      <div>
+      <div className="content-right" >
         <Info>
           Practice your speeches with slides, docs, or any other background.
         </Info>

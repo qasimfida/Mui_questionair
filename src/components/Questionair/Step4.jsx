@@ -1,11 +1,10 @@
 import { Button, Steps, Text, Flex, Spacing, Description } from "./styles";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
 import img from "../../assets/invites.png";
-import { Grid, Input, TextField } from "@mui/material";
+import { Input, Button as MuiButton } from "@mui/material";
 import { useState } from "react";
-import moment from "moment";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CheckIcon from "@mui/icons-material/Check";
 
 const Step4 = ({ step, updateState, handleClose }) => {
   const [emails, setEmails] = useState([
@@ -13,8 +12,41 @@ const Step4 = ({ step, updateState, handleClose }) => {
     "helena@allenai.org",
   ]);
   const [email, setEmail] = useState("");
+  const [editEmail, setEditEmail] = useState("");
+  const [error, setError] = useState(false);
+  const [isEdit, setIsEdit] = useState(null);
+  const isValid = (value) => {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+  };
   const addInvite = () => {
-    setEmails([...emails, email]);
+    if(isValid(email)){
+      setEmails([...emails, email]);
+      setError(false)
+      setEmail('');
+    }
+    setError(true)
+  };
+  const onEdit = (key, value) => {
+    setEditEmail(value);
+    setIsEdit(key);
+  };
+  const handleEmailChange = (e) => {
+    setEditEmail(e.target.value);
+  };
+  const onSave = () => {
+    if (isValid(editEmail)) {
+      const arr = [...emails];
+      arr[isEdit] = editEmail;
+      setEmails([...arr]);
+      setIsEdit(null);
+      setEditEmail('');
+    }
+    setError(true);
+  };
+  const onDelete = (i) => {
+    const arr = [...emails];
+    arr.splice(1, i);
+    setEmails([...arr]);
   };
   return (
     <Steps>
@@ -35,6 +67,8 @@ const Step4 = ({ step, updateState, handleClose }) => {
             <Input
               placeholder="Typing email..."
               value={email}
+              disabled={emails.length === 3}
+              error={error && isEdit === null}
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
@@ -52,14 +86,42 @@ const Step4 = ({ step, updateState, handleClose }) => {
           <label className="invites-label">
             Invited ({` ${emails.length} / 3`})
           </label>
-          {emails.map((email) => (
-            <h2>{email}</h2>
+          {emails.map((email, index) => (
+            <div className="email-row" key={`${index}`}>
+              {isEdit === index ? (
+                <Input
+                  placeholder="Your email"
+                  value={editEmail}
+                  autoFocus
+                  error={error && isEdit !== null}
+                  onChange={handleEmailChange}
+                />
+              ) : (
+                <h2>{email}</h2>
+              )}
+              <div className="action-btns">
+                {isEdit === index ? (
+                  <CheckIcon onClick={() => onSave()} />
+                ) : (
+                  <EditIcon onClick={() => onEdit(index, email)} />
+                )}
+                <DeleteIcon onClick={() => onDelete(index)} />
+              </div>
+            </div>
           ))}
         </div>
       </div>
       <div className="actions form-actions form-flex ">
-        <Button className="invite-btn" variant="contained" onClick={()=>updateState('emails', emails)} >Invite</Button>
-        <Button onClick={handleClose} className="invite-later-btn" >Invite Later</Button>
+        <Button
+          className="invite-btn"
+          variant="contained"
+          onClick={() => updateState("emails", emails)}
+        >
+          Invite
+        </Button>
+        <Button onClick={handleClose} className="invite-later-btn">
+          Invite Later
+        </Button>
       </div>
       <span className="label">{step} of 4</span>
     </Steps>

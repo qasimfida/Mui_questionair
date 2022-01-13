@@ -2,7 +2,7 @@ import { Button, Steps, Text, Flex, Spacing } from "./styles";
 import img from "../../assets/event.png";
 import { Grid } from "@mui/material";
 
-const Step2 = ({ step, updateState }) => {
+const Step2 = ({ step, updateState, cursor, options }) => {
   return (
     <Steps>
       <Flex className="second-card ">
@@ -11,43 +11,17 @@ const Step2 = ({ step, updateState }) => {
       </Flex>
       <div className="actions">
         <Grid container spacing={1}>
-          <Grid item xs={6}>
-            <Button
-              onClick={() => updateState("event", "interview")}
-              variant="contained"
-              width="100%"
-            >
-              Interview
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              onClick={() => updateState("event", "presentation")}
-              variant="outlined"
-              width="100%"
-            >
-              Presentation with slides
-            </Button>
-          </Grid>
-          <Spacing />
-          <Grid item xs={6}>
-            <Button
-              onClick={() => updateState("event", "speech")}
-              variant="outlined"
-              width="100%"
-            >
-              Speech without slides
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              onClick={() => updateState("event", "exploring")}
-              variant="outlined"
-              width="100%"
-            >
-              I’m just exploring 🙌
-            </Button>
-          </Grid>
+          {options.map((option, index) => (
+            <Grid item xs={6} key={`${index}`}>
+              <Button
+                onClick={() => updateState("event", option)}
+                variant={cursor === index ? "contained" : "outlined"}
+                width="100%"
+              >
+                {option}
+              </Button>
+            </Grid>
+          ))}
         </Grid>
       </div>
       <span className="label">{step} of 4</span>

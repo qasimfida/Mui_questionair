@@ -8,7 +8,7 @@ const Step1 = ({ step, updateStep }) => {
       <div className="media-left">
         <img src={step2} alt="step2" className="single-img d-block" />
       </div>
-      <div>
+      <div className="content-right">
         <Info>
           Click on the Yoodli icon to see analytics on your verbal and nonverbal communication
         </Info>

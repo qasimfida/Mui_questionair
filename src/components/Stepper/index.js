@@ -8,7 +8,9 @@ import Step4 from "./Step4";
 const Stepper = () => {
   const [step, setStep] = useState(1);
   const updateStep = () => {
-    setStep(step + 1);
+    if(step < 4){
+      setStep(step + 1);
+    }
   };
   const renderStep = () => {
     switch (step) {

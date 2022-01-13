@@ -18,6 +18,7 @@ export const Wrapper = styled("div")({
   borderRadius: "16px",
   padding: "16px",
   position: "absolute",
+  outline: "none",
 });
 export const Text = styled(Typography)(({ padding }) => ({
   fontWeight: 500,
@@ -64,6 +65,9 @@ export const Step1 = styled("div")((props) => ({
   padding: "0 82px",
 }));
 export const Steps = styled("div")(({ theme }) => ({
+  '.MuiInput-underline.MuiInputBase-root.Mui-error::before':{
+    borderBottom: '1px solid red !important'
+  },
   ".first-card": {
     margin: "40px 16px 64px 40px",
     img: {
@@ -137,21 +141,20 @@ export const Steps = styled("div")(({ theme }) => ({
   ".form-flex": {
     display: "flex",
     justifyContent: "center",
-    padding: '6px 0'
+    padding: "6px 0",
   },
   ".form-actions": {
     ".invite-btn": {
       padding: "14px 36px",
     },
     input: {
-      fontSize: '12px',
-      color: theme.colors.gray1
+      fontSize: "12px",
+      color: theme.colors.gray1,
     },
     ".invite-later-btn": {
       padding: "14px 6px",
       marginLeft: "16px",
     },
-    
   },
   ".form-actions .css-xrpeox-MuiInputBase-root-MuiInput-root": {
     width: "100%",
@@ -161,15 +164,59 @@ export const Steps = styled("div")(({ theme }) => ({
   },
   ".form-email": {
     margin: "18px 0",
+    ".email-row": {
+      display: "flex",
+      position: "relative",
+      ".css-xrpeox-MuiInputBase-root-MuiInput-root": {
+        marginTop: "10px",
+        marginBottom: "0px",
+      },
+      input: {
+        paddingRight: 0,
+        marginBottom: "0px",
+      },
+      ".action-btns": {
+        transform: "scale(0)",
+        position: "absolute",
+        right: "8px",
+        top: "14px",
+        svg: {
+          height: "14px",
+          width: "14px",
+          margin: "0 4px",
+          borderRadius: "50%",
+          border: `1px solid ${theme.colors.gray3}`,
+          padding: "3px",
+          color: theme.colors.gray3,
+          cursor: "pointer",
+          transition: '0.3s all ease-in-out',
+          "&:hover": {
+            transition: '0.3s all ease-in-out',
+            color: theme.colors.primary,
+            borderColor: theme.colors.primary,
+          },
+        },
+      },
+      "&:hover .action-btns ": {
+        transform: "scale(1)",
+      },
+    },
     h2: {
-      padding: "7px 14px 8px",
+      padding: "0 14px 0",
+      height: "32px",
+      width: '100%',
+      alignItems: "center",
       background: theme.colors.gray8,
       borderRadius: "8px",
       marginTop: "10px",
+      marginBottom: "0px",
       fontWeight: "normal",
       fontSize: "12px",
       lineHeight: "16px",
-      color: theme.colors.gray1
+      color: theme.colors.gray1,
+      display: "flex",
+      justifyContent: "space-between",
+      position: "relative",
     },
   },
   ".action-btn": {

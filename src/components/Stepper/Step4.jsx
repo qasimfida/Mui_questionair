@@ -8,7 +8,7 @@ const Step4 = ({ step, updateStep }) => {
       <div className="media-left">
         <img src={step4} alt="step4" className="single-img w-285px d-block" />
       </div>
-      <div>
+      <div className="content-right">
         <Info>
             Click the pinned icon and start practicing your first speech
         </Info>

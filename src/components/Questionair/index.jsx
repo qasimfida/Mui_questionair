@@ -33,7 +33,7 @@ const Questionair = () => {
     date: moment().format("L"),
     emails: [],
   });
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(0);
   const updateState = (key, value) => {
     if (key === "date" && !validDate(value)) {
       return 0

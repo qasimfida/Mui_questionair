@@ -45,7 +45,7 @@ const Step4 = ({ step, updateState, handleClose }) => {
   };
   const onDelete = (i) => {
     const arr = [...emails];
-    arr.splice(1, i);
+    arr.splice(i, 1);
     setEmails([...arr]);
   };
   return (

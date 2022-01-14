@@ -251,11 +251,28 @@ export const Steps = styled("div")(({ theme }) => ({
     width: "100%",
   },
 }));
-export const BackButton = styled(MuiButton)({
+export const BackButton = styled(MuiButton)(({theme})=>({
   position: 'absolute',
-  top: '20px',
+  top: '50%',
+  transform: 'translateY(-50%)',
   left: '20px',
   padding: '0',
   margin: 0,
-  textTransform: 'capitalize'
-})
+  textTransform: 'capitalize',
+  borderRadius: '50%',
+  minWidth: 'auto !important',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '32px',
+  width: '32px',
+  "svg":{
+    width: '24px',
+    height: '24px',
+    marginLeft: '7px'
+  },
+  "&:hover":{
+    background: theme.colors.primary,
+    color: "#fff"
+  }
+}))

@@ -1,7 +1,7 @@
 import { ModalWrapper, Wrapper, BackButton } from "./styles";
 import Start from "./start";
 import { useEffect, useState } from "react";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -160,7 +160,7 @@ const Questionair = () => {
     <ModalWrapper open={open}>
       <Wrapper>
         <BackButton disabled={step === 0} onClick={handleBack}>
-          <KeyboardBackspaceIcon /> Back
+          <ArrowBackIosIcon />
         </BackButton>
         {renderStep()}
       </Wrapper>

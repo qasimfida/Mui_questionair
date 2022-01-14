@@ -1,6 +1,7 @@
-import { ModalWrapper, Wrapper } from "./styles";
+import { ModalWrapper, Wrapper, BackButton } from "./styles";
 import Start from "./start";
 import { useEffect, useState } from "react";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -36,7 +37,7 @@ const Questionair = () => {
   const [step, setStep] = useState(0);
   const updateState = (key, value) => {
     if (key === "date" && !validDate(value)) {
-      return 0
+      return 0;
     } else {
       if (key) {
         setState({
@@ -55,7 +56,7 @@ const Questionair = () => {
   const validDate = (date) => {
     const b = moment().utc();
     const a = moment(date);
-    const d = a.diff(b,'days');
+    const d = a.diff(b, "days");
     return d < 0 ? false : true;
   };
 
@@ -103,6 +104,9 @@ const Questionair = () => {
     } else if (code === "ArrowUp" || code === "ArrowDown") {
       handleUpDown(code);
     }
+  };
+  const handleBack = () => {
+    setStep(step - 1);
   };
   const renderStep = () => {
     switch (step) {
@@ -154,7 +158,12 @@ const Questionair = () => {
   };
   return (
     <ModalWrapper open={open}>
-      <Wrapper>{renderStep()}</Wrapper>
+      <Wrapper>
+        <BackButton disabled={step === 0} onClick={handleBack}>
+          <KeyboardBackspaceIcon /> Back
+        </BackButton>
+        {renderStep()}
+      </Wrapper>
     </ModalWrapper>
   );
 };

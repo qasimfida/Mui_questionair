@@ -251,3 +251,11 @@ export const Steps = styled("div")(({ theme }) => ({
     width: "100%",
   },
 }));
+export const BackButton = styled(MuiButton)({
+  position: 'absolute',
+  top: '20px',
+  left: '20px',
+  padding: '0',
+  margin: 0,
+  textTransform: 'capitalize'
+})

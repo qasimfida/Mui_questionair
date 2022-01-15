@@ -158,3 +158,15 @@ export const AddExtension = styled(MuiButton)(({ theme }) => ({
     opacity: 0.9,
   },
 }));
+export const Footer = styled('div')({
+  maxWidth: '1060px',
+  margin: "0 auto"
+})
+export const IconBox = styled('div')({
+  borderRadius: '8px',
+  background: '#fff',
+  padding: '32px',
+  p: {
+    marginTop: '16px'
+  }
+})

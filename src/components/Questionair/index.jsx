@@ -1,7 +1,7 @@
 import { ModalWrapper, Wrapper, BackButton } from "./styles";
 import Start from "./start";
 import { useEffect, useState } from "react";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -15,27 +15,38 @@ const step1Options = [
 ];
 const step2Options = [
   "Interview",
-  " Presentation with slides",
-  " Speech without slides",
+  "Presentation with slides",
+  "Speech without slides",
   "I’m just exploring 🙌",
 ];
-const step3Options = [
-  "Interview",
-  " Presentation with slides",
-  " Speech without slides",
-  "I’m just exploring 🙌",
-];
+
 const Questionair = () => {
   const [open, setOpen] = useState(true);
   const [cursor, setCursor] = useState(0);
   const [state, setState] = useState({
-    speaking: "",
-    event: "",
+    speaking: "Managing my nerves",
+    event: "Presentation with slides",
     date: moment().format("L"),
     emails: [],
   });
   const [step, setStep] = useState(0);
+  const [error, setError] = useState('');
+
+  const rememberStep = (key) => {
+    alert(key)
+    if(key === 0 && state.speaking){
+      const index = step1Options.indexOf(state.speaking);
+      console.log({index, key}, "1");
+      setCursor(index)
+    }
+    if(key === 1 && state.event){
+      const index = step2Options.indexOf(state.event);
+      console.log({index, key}, "2");
+      setCursor(index)
+    }
+  }
   const updateState = (key, value) => {
+    console.log({key, value})
     if (key === "date" && !validDate(value)) {
       return 0;
     } else {
@@ -44,13 +55,20 @@ const Questionair = () => {
           [key]: value,
         });
       }
+      rememberStep(step);
       setStep(step + 1);
-      if (step == 4) {
+      if (step === 4) {
         setOpen(false);
       }
     }
   };
   const editState = (key, value) => {
+    if(!validDate(value)){
+      setError('date')
+    }
+    else{
+      setError('')
+    }
     setState({ ...state, [key]: value });
   };
   const validDate = (date) => {
@@ -86,13 +104,13 @@ const Questionair = () => {
   const handleArrowKeys = ({ code }) => {
     if (code === "Enter") {
       if (step === 0) {
-        updateState(1);
+        updateState(0);
       }
       if (step === 1) {
-        updateState(step1Options[cursor], "words");
+        updateState("speaking",step1Options[cursor]);
       }
       if (step === 2) {
-        updateState(step1Options[cursor], "words");
+        updateState("event",step1Options[cursor]);
       }
       if (step === 3) {
         if (validDate(state.date)) {
@@ -106,6 +124,7 @@ const Questionair = () => {
     }
   };
   const handleBack = () => {
+    rememberStep(step-2);
     setStep(step - 1);
   };
   const renderStep = () => {
@@ -140,6 +159,7 @@ const Questionair = () => {
             step={step}
             state={state.date}
             editState={editState}
+            error={error === 'date'}
           />
         );
       case 4:
@@ -156,12 +176,15 @@ const Questionair = () => {
         return <Start updateState={updateState} />;
     }
   };
+  console.log(state)
   return (
     <ModalWrapper open={open}>
       <Wrapper>
-        <BackButton disabled={step === 0} onClick={handleBack}>
-          <ArrowBackIosIcon />
-        </BackButton>
+        {step > 1 && (
+          <BackButton onClick={handleBack}>
+            <ArrowBackIosIcon />
+          </BackButton>
+        )}
         {renderStep()}
       </Wrapper>
     </ModalWrapper>

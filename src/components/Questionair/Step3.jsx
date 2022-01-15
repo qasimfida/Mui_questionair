@@ -4,10 +4,9 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import img from "../../assets/calendar.png";
 import { TextField } from "@mui/material";
-import { useState } from "react";
 import moment from "moment";
 
-const Step3 = ({ step, updateState, editState, state }) => {
+const Step3 = ({ step, updateState, editState, state, error }) => {
   return (
     <Steps>
       <Flex className="third-card ">
@@ -22,7 +21,9 @@ const Step3 = ({ step, updateState, editState, state }) => {
               openTo="day"
               value={state}
               disablePast
-              onChange={(newValue) => editState("date", moment(newValue).format("L"))}
+              onChange={(newValue) =>
+                editState("date", moment(newValue).format("L"))
+              }
               format={"yyyy/MMM/dd"}
               renderInput={(params) => (
                 <TextField variant="filled" {...params} />
@@ -31,6 +32,7 @@ const Step3 = ({ step, updateState, editState, state }) => {
           </LocalizationProvider>
         </div>
         <Button
+          disabled={error}
           className="action-btn"
           size="sm"
           onClick={() => updateState("date", state)}

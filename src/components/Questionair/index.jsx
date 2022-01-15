@@ -30,23 +30,19 @@ const Questionair = () => {
     emails: [],
   });
   const [step, setStep] = useState(0);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const rememberStep = (key) => {
-    alert(key)
-    if(key === 0 && state.speaking){
+    if (key === 0 && state.speaking) {
       const index = step1Options.indexOf(state.speaking);
-      console.log({index, key}, "1");
-      setCursor(index)
+      setCursor(index);
     }
-    if(key === 1 && state.event){
+    if (key === 1 && state.event) {
       const index = step2Options.indexOf(state.event);
-      console.log({index, key}, "2");
-      setCursor(index)
+      setCursor(index);
     }
-  }
+  };
   const updateState = (key, value) => {
-    console.log({key, value})
     if (key === "date" && !validDate(value)) {
       return 0;
     } else {
@@ -63,11 +59,10 @@ const Questionair = () => {
     }
   };
   const editState = (key, value) => {
-    if(!validDate(value)){
-      setError('date')
-    }
-    else{
-      setError('')
+    if (!validDate(value)) {
+      setError("date");
+    } else {
+      setError("");
     }
     setState({ ...state, [key]: value });
   };
@@ -107,10 +102,10 @@ const Questionair = () => {
         updateState(0);
       }
       if (step === 1) {
-        updateState("speaking",step1Options[cursor]);
+        updateState("speaking", step1Options[cursor]);
       }
       if (step === 2) {
-        updateState("event",step1Options[cursor]);
+        updateState("event", step1Options[cursor]);
       }
       if (step === 3) {
         if (validDate(state.date)) {
@@ -124,7 +119,7 @@ const Questionair = () => {
     }
   };
   const handleBack = () => {
-    rememberStep(step-2);
+    rememberStep(step - 2);
     setStep(step - 1);
   };
   const renderStep = () => {
@@ -159,7 +154,7 @@ const Questionair = () => {
             step={step}
             state={state.date}
             editState={editState}
-            error={error === 'date'}
+            error={error === "date"}
           />
         );
       case 4:
@@ -176,7 +171,6 @@ const Questionair = () => {
         return <Start updateState={updateState} />;
     }
   };
-  console.log(state)
   return (
     <ModalWrapper open={open}>
       <Wrapper>

@@ -32,26 +32,16 @@ const Questionair = () => {
   const [step, setStep] = useState(0);
   const [error, setError] = useState("");
 
-  const rememberStep = (key) => {
-    if (key === 0 && state.speaking) {
-      const index = step1Options.indexOf(state.speaking);
-      setCursor(index);
-    }
-    if (key === 1 && state.event) {
-      const index = step2Options.indexOf(state.event);
-      setCursor(index);
-    }
-  };
   const updateState = (key, value) => {
     if (key === "date" && !validDate(value)) {
       return 0;
     } else {
       if (key) {
         setState({
+          ...state,
           [key]: value,
         });
       }
-      rememberStep(step);
       setStep(step + 1);
       if (step === 4) {
         setOpen(false);
@@ -119,9 +109,18 @@ const Questionair = () => {
     }
   };
   const handleBack = () => {
-    rememberStep(step - 2);
     setStep(step - 1);
   };
+  const updateCursor = (active) => {
+    if(active === "step1"){
+      const ind = step1Options.indexOf(state.speaking);
+      setCursor(ind)
+    }
+    else {
+      const ind = step2Options.indexOf(state.event);
+      setCursor(ind)
+    }
+  }
   const renderStep = () => {
     switch (step) {
       case 0:
@@ -132,16 +131,18 @@ const Questionair = () => {
             updateState={updateState}
             options={step1Options}
             cursor={cursor}
+            updateCursor={()=>updateCursor('step1')}
             state={state.speaking}
             step={step}
-          />
-        );
-      case 2:
-        return (
-          <Step2
-            updateState={updateState}
-            options={step2Options}
-            cursor={cursor}
+            />
+            );
+            case 2:
+              return (
+                <Step2
+                updateState={updateState}
+                options={step2Options}
+                cursor={cursor}
+                updateCursor={()=>updateCursor('step2')}
             state={state.event}
             step={step}
           />

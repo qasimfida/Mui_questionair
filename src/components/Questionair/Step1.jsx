@@ -1,8 +1,12 @@
 import { Button, Steps, Text, Flex, Spacing } from "./styles";
 import img from "../../assets/comment.png";
 import { Grid } from "@mui/material";
+import { useEffect } from "react";
 
-const Step1 = ({ step, updateState, cursor, options }) => {
+const Step1 = ({ step, updateState, cursor, options, updateCursor }) => {
+  useEffect(()=>{
+    updateCursor();
+  },[])
   return (
     <Steps>
       <Flex className="first-card ">
